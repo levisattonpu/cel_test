@@ -1,7 +1,7 @@
 from celery import Celery
 import os
 from dotenv import load_dotenv
-from worker import get_weather
+from services.worker import get_weather
 
 load_dotenv()
 

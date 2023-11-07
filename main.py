@@ -1,5 +1,5 @@
-from tasks import get_results, app 
-from coordinates import querydict
+from services.tasks import get_results, app 
+from data.coordinates import querydict
 
 
 

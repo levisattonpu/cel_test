@@ -7,8 +7,8 @@ load_dotenv()
 
 app = Celery('tasks', backend=os.getenv('BACKEND'), broker=os.getenv('BROKER'))
 
-@app.task
-def get_results(querydict):
-    weather_forecast_list = get_weather(querydict)
-    return weather_forecast_list
 
+@app.task
+def get_results(location:dict):
+    weather_forecast_list = get_weather(location)
+    return weather_forecast_list

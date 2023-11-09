@@ -10,6 +10,7 @@ if __name__ == '__main__':
     args = ['-A', 'main','worker', '-l', 'INFO', '-E']
     app.worker_main(argv=args)
     # ['-A', 'main.app', 'flower']
+    app.close()
 
 
 ### Rodar Celery

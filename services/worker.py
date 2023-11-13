@@ -3,11 +3,14 @@ import requests
 import os
 from dotenv import load_dotenv
 import json
+from celery import Celery
+
+from celery.schedules import crontab
 
 load_dotenv()
 
-
-
+app = Celery('tasks', backend=os.getenv('BACKEND'), broker=os.getenv('BROKER'))
+@app.task
 def get_weather(querystring:str):
     try:
         url = "https://weatherapi-com.p.rapidapi.com/current.json"
@@ -26,3 +29,10 @@ def get_weather(querystring:str):
     except Exception as e:
         logging.exception('%s', e)
         raise e
+
+app.conf.beat_schedule = {
+    'schedule': {
+        'task': 'tasks.get_results.delay()',
+        'schedule': crontab(minute='*/1')
+    },
+}
